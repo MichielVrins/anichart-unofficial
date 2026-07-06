@@ -1,0 +1,52 @@
+query getSeasonalAnime($season: MediaSeason, $year: Int, $page: Int) {
+  Page(page: $page) {
+    pageInfo {
+      hasNextPage
+      total
+    }
+    media(
+      season: $season
+      seasonYear: $year
+      isAdult: false
+      type: ANIME
+      sort: TITLE_ROMAJI
+    ) {
+      ...Media
+    }
+  }
+}
+
+fragment Media on Media {
+  id
+  title {
+    romaji
+  }
+  status
+  genres
+  popularity
+  episodes
+  source(version: 2)
+  averageScore
+  siteUrl
+  description
+  coverImage {
+    large
+  }
+  studios(isMain: true) {
+    nodes {
+      id
+      name
+      siteUrl
+    }
+  }
+  airingSchedule(notYetAired: true, perPage: 2) {
+    nodes {
+      episode
+      airingAt
+    }
+  }
+  nextAiringEpisode {
+    episode
+    airingAt
+  }
+}
