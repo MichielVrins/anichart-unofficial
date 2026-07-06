@@ -72,5 +72,5 @@ without contacting the AniList schema endpoint.
 
 Anime metadata and images come from AniList. This project is not affiliated
 with or endorsed by AniList. Please follow the
-[AniList API terms of use](https://anilist.gitbook.io/anilist-apiv2-docs/overview/rate-limiting)
+[AniList API terms of use](https://docs.anilist.co/guide/terms-of-use)
 when deploying or extending the application.
