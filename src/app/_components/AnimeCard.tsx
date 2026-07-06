@@ -5,6 +5,7 @@ import { Card } from "~/components/ui/card";
 import parse from "html-react-parser";
 import { Countdown } from "./Countdown";
 import { getEpisodeSummary } from "~/lib/anime/episodes";
+import { WatchLabelButton } from "./WatchLabelButton";
 
 export const NewAnimeCard: React.FC<{ media: MediaFragment }> = ({ media }) => {
   const { statusLabel, episodesText, hasUpcomingEpisode } =
@@ -12,7 +13,10 @@ export const NewAnimeCard: React.FC<{ media: MediaFragment }> = ({ media }) => {
   const coverImage = media.coverImage?.large;
 
   return (
-    <Card className="overflow-hidden rounded-none sm:rounded-md">
+    <Card className="relative overflow-hidden rounded-none sm:rounded-md">
+      <div className="absolute right-2 top-2 z-10">
+        <WatchLabelButton mediaId={media.id} />
+      </div>
       <div className="flex gap-4">
         {coverImage ? (
           // AniList images are served directly to retain their browser/CDN caching.
@@ -27,7 +31,7 @@ export const NewAnimeCard: React.FC<{ media: MediaFragment }> = ({ media }) => {
         ) : null}
 
         <div className="pr-2 pt-2">
-          <h2 className="text-2xl font-medium tracking-tighter">
+          <h2 className="pr-8 text-2xl font-medium tracking-tighter">
             <Link href={media.siteUrl ?? ""}>{media.title?.romaji ?? ""}</Link>
           </h2>
           <div className="flex flex-wrap items-center gap-x-2 text-sm">
