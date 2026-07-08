@@ -1,20 +1,23 @@
 import { Suspense } from "react";
-import { redirect } from "next/navigation";
-import { connection } from "next/server";
+import { AsyncAnimeList } from "~/app/_components/AnimeList";
+import { Header } from "~/app/_components/Header";
 import { getCurrentAnimeSeason } from "~/lib/seasons";
 
 export default function Home() {
-  return (
-    <Suspense fallback={<p>Loading current season…</p>}>
-      <CurrentSeasonRedirect />
-    </Suspense>
-  );
-}
-
-async function CurrentSeasonRedirect() {
-  await connection();
   const now = new Date();
-  return redirect(
-    `/anime/${now.getFullYear()}/${getCurrentAnimeSeason(now).toLowerCase()}`,
+  const year = now.getFullYear();
+  const season = getCurrentAnimeSeason(now);
+
+  return (
+    <>
+      <Header year={year.toString()} season={season} />
+      <main className="flex min-h-screen flex-col items-center justify-center">
+        <div className="flex flex-col items-center justify-center gap-12 sm:px-4 sm:py-8">
+          <Suspense fallback={<p>Loading anime…</p>}>
+            <AsyncAnimeList year={year} season={season} />
+          </Suspense>
+        </div>
+      </main>
+    </>
   );
 }
