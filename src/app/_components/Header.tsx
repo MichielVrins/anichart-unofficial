@@ -4,7 +4,11 @@ import { ANIME_SEASONS } from "~/lib/seasons";
 import { ModeToggle } from "./ModeToggle";
 import { YearSelection } from "./YearSelection";
 
-export function Header(props: { year: string; season: MediaSeason }) {
+export function Header(props: {
+  year: string;
+  season: MediaSeason;
+  supportedYears: number[];
+}) {
   return (
     <header className="flex items-center justify-between border p-3 text-faded">
       <nav className="flex w-full items-center gap-2" aria-label="Anime season">

@@ -8,9 +8,12 @@ import {
   SelectValue,
 } from "~/components/ui/select";
 import { MediaSeason } from "~/generated/graphql";
-import { getSupportedYears } from "~/lib/seasons";
 
-export const YearSelection = (props: { year: string; season: MediaSeason }) => {
+export const YearSelection = (props: {
+  year: string;
+  season: MediaSeason;
+  supportedYears: number[];
+}) => {
   const router = useRouter();
 
   return (
@@ -24,7 +27,7 @@ export const YearSelection = (props: { year: string; season: MediaSeason }) => {
         <SelectValue placeholder={props.year} />
       </SelectTrigger>
       <SelectContent>
-        {getSupportedYears().map((year) => (
+        {props.supportedYears.map((year) => (
           <SelectItem key={year} value={year.toString()}>
             {year}
           </SelectItem>
