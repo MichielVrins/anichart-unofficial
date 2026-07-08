@@ -1,4 +1,5 @@
 "use client";
+import { useSyncExternalStore } from "react";
 import { useRouter } from "next/navigation";
 import {
   Select,
@@ -8,13 +9,19 @@ import {
   SelectValue,
 } from "~/components/ui/select";
 import { MediaSeason } from "~/generated/graphql";
+import { getSupportedYears } from "~/lib/seasons";
 
-export const YearSelection = (props: {
-  year: string;
-  season: MediaSeason;
-  supportedYears: number[];
-}) => {
+const subscribeToYearChanges = () => () => undefined;
+const getBrowserYear = () => new Date().getFullYear();
+
+export const YearSelection = (props: { year: string; season: MediaSeason }) => {
   const router = useRouter();
+  const currentYear = useSyncExternalStore(
+    subscribeToYearChanges,
+    getBrowserYear,
+    () => Number(props.year),
+  );
+  const supportedYears = getSupportedYears(currentYear);
 
   return (
     <Select
@@ -27,7 +34,7 @@ export const YearSelection = (props: {
         <SelectValue placeholder={props.year} />
       </SelectTrigger>
       <SelectContent>
-        {props.supportedYears.map((year) => (
+        {supportedYears.map((year) => (
           <SelectItem key={year} value={year.toString()}>
             {year}
           </SelectItem>

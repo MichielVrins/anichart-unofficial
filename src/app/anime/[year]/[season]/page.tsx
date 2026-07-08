@@ -6,7 +6,6 @@ import {
   ANIME_SEASONS,
   FIRST_SUPPORTED_YEAR,
   getPrebuiltYears,
-  getSupportedYears,
   parseAnimeSeason,
 } from "~/lib/seasons";
 
@@ -34,11 +33,7 @@ export default async function SeasonAnime({ params }: SeasonPageProps) {
 
   return (
     <>
-      <Header
-        year={yearParam}
-        season={season}
-        supportedYears={getSupportedYears(year)}
-      />
+      <Header year={yearParam} season={season} />
       <main className="flex min-h-screen flex-col items-center justify-center">
         <div className="flex flex-col items-center justify-center gap-12 sm:px-4 sm:py-8">
           <Suspense fallback={<p>Loading anime…</p>}>
