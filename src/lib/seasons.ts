@@ -16,9 +16,7 @@ export const getSupportedYears = (currentYear = new Date().getFullYear()) =>
   );
 
 export const getPrebuiltYears = (currentYear = new Date().getFullYear()) => [
-  currentYear - 1,
   currentYear,
-  currentYear + 1,
 ];
 
 export const getCurrentAnimeSeason = (date = new Date()) => {
