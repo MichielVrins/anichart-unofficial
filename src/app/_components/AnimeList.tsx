@@ -7,6 +7,8 @@ export const AsyncAnimeList = async (props: {
   year: number;
   season: MediaSeason;
 }) => {
+  "use cache";
+
   const seasonalAnime = await fetchSeasonalAnime({
     season: props.season,
     year: props.year,
